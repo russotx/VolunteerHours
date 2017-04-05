@@ -22,8 +22,8 @@
 
     - **FUNCTIONS**
         - `onboardVol()`
-            - `grabUserData()`
-            - `validateUserData()`
+            - `grabUserData()` -- taken care of with fieldData object method
+            - `isValidVolData()`
             - `newUserToDB()`
             - `emailNewUser()`
 
@@ -41,11 +41,11 @@
     - **FUNCTIONS**
         - `queryVolDB()`
             - `grabQueryFields()`
-            - `validateQueryFields()`
+            - `isValidQuery()`
             - `fetchDBQuery()`
             - `displayQuery()`
             - `clearQuery()`
-            - `captureQueryResults()`
+            - `captureQueryResult()`
 
                 >need to save the data as an object to pass as parameter  
                 >to the send SMS function  
