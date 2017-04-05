@@ -11,7 +11,9 @@
     - Boolean variables start with is: `isCorrect  isReady`
 - #### Functions
 
-    - end with Func: `myFunc grabWordFunc`
+    - if it fetches data use "grab": `myFunc grabWord`
+    - if it 
+    
 - #### CSS
 
     - no camel case, use dash between words: `.crazy-heading`
