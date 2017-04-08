@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<html>
+<head>
+    <title>Volunteer Page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/orgstyle.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">   
+    <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.2.0/superhero/bootstrap.min.css" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/3.7.5/firebase.js"></script>
+    <script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyC-YEHMVYWxliKgm_K9tujq8A_EHYXr6SI",
+    authDomain: "volunteerhours-35189.firebaseapp.com",
+    databaseURL: "https://volunteerhours-35189.firebaseio.com",
+    projectId: "volunteerhours-35189",
+    storageBucket: "volunteerhours-35189.appspot.com",
+    messagingSenderId: "672807771974"
+  };
+  firebase.initializeApp(config);
+  </script>
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="jumbotron box">
+                <h1>Best Volunteer Ever.</h1>
+                <br>
+                <h2>Saving the world one website at a time.</h2>
+                <h3>Patting Myself on the back.</h3>
+            </div>   
+        </div>
+        <br>
+        <br>
+        <div class="row">
+            <div class="panel panel-primary">
+                <div class="panel-heading">My Stats</div>
+                    <div class="panel-body">
+                        <table class="table" id="trainTable">
+                            <thead>
+                            <tr>
+                                <th><h4>My Hours</h4></th>
+                                <th><h4>Total Hours Volunteered</h4></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>            
+            <br>
+            <br>
+            <div class="row">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Add Hours</div>
+                        <div class="panel-body">
+                            <div class="input-group">
+                                <label for="myHours">Input Hours</label>
+                                <input type="text" class="form-control" id="myHours" aria-describedby="basic-addon1">
+                            </div>
+
+                           
+                            
+                            <div class="btn-group">
+                                <button type="button" id="submit" class="btn btn-primary btn-lg">Submit</button>
+
+                                <button type="button" id="logout" class="btn btn-primary btn-lg">logout</button>
+
+                            </div>
+                        </div>
+                    </div>           
+            </div>
+    </div>
+<script>
+
+document.getElementById("logout").onclick = function(event){
+  event.preventDefault();
+  logout();
+  }
+
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+  } else if (!user) {
+    window.location = "/login";
+  }
+});
+
+
+function logout () {
+  firebase.auth().signOut().then(function() {
+  alert("Sign out successful")
+  }, function(error) {
+  console.log(error);
+  });
+}
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+</html>
