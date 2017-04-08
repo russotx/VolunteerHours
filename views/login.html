@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hour Checker</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/loginstyle.css">
+    <script src="https://www.gstatic.com/firebasejs/3.7.5/firebase.js"></script>
+    <script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyC-YEHMVYWxliKgm_K9tujq8A_EHYXr6SI",
+    authDomain: "volunteerhours-35189.firebaseapp.com",
+    databaseURL: "https://volunteerhours-35189.firebaseio.com",
+    projectId: "volunteerhours-35189",
+    storageBucket: "volunteerhours-35189.appspot.com",
+    messagingSenderId: "672807771974"
+  };
+  firebase.initializeApp(config);
+  </script>
+  </head>
+    
+    <nav class="navbar">
+      <h1>Welcome to VolunText</h1>
+    </nav>
+  
+  <body>
+   
+    <div class="test" >
+      <h2 id="moto">Let Us Keep Track of Your Hours</h2>
+    </div>
+    
+    <div class="row row1">
+      
+      <div class="col-sm-1">
+      </div>
+
+      <div class="col-sm-5">
+        <p>Welcome the best service for keeping track of volunteer hours!! Here at VolunText we believe in blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah</p>
+      </div>
+
+      <div class="col-sm-5">
+
+        <div class="row">
+          <img id="logo" class="img-responsive img-circle"src="images/logo.jpg" alt="logo">
+        </div>
+
+        <div class="row">
+          <div class="input-group">
+            <label for="email">Email</label>
+            <input type="text" class="form-control" id="email" aria-describedby="basic-addon1">
+          </div>
+
+          <div class="input-group">
+            <label for="password">Password</label>
+            <input type="text" class="form-control" id="password" aria-describedby="basic-addon1">
+          </div>
+                            
+          <div class="btn-group">
+            <button type="submit" id="signIn" class="btn btn-primary btn-lg" action="/" method="post">SignIn</button>
+          </div>
+
+      </div>
+
+      <div class="col-sm-1">
+      </div>
+
+    </div>
+    
+    <br>
+    <br>
+    
+    <div id="link">
+      <a href="/org">Admin?</a>
+    </div>
+
+<script>
+
+document.getElementById("signIn").onclick = function(event){
+  event.preventDefault();
+  authenticateUser();
+  console.log("you a beast");
+  }
+
+
+function authenticateUser() {
+  var email = document.getElementById("email").value;
+  var password = document.getElementById("password").value;
+
+  firebase.auth().signInWithEmailAndPassword(email, password).then(function (user) {
+     //debugging purpose
+    }).catch(function (error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.log(errorMessage);
+      if (errorCode === 'auth/wrong-password') {
+        alert('Sorry, but the password was incorrect.');
+      } else {
+        alert(errorMessage);
+        } 
+    });
+  }
+
+
+  firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    window.location = "/index";
+  }
+});
+
+
+function logout () {
+  firebase.auth().signOut().then(function() {
+  }, function(error) {
+  console.log(error);
+  });
+}
+
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<script type="text/javascript" src="/javascript/main.js"></script>
+    
+</body>
+</html>

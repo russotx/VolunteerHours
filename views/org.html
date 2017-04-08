@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<html>
+<head>
+    <title>Org Page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/orgstyle.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">   
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" integrity="sha384-+ENW/yibaokMnme+vBLnHMphUYxHs34h9lpdbSLuAwGkOKFRl4C34WkjazBtb7eT" crossorigin="anonymous"> 
+    <script src="https://www.gstatic.com/firebasejs/3.7.5/firebase.js"></script>
+    <script>
+    // Initialize Firebase
+    var config = {
+    apiKey: "AIzaSyC-YEHMVYWxliKgm_K9tujq8A_EHYXr6SI",
+    authDomain: "volunteerhours-35189.firebaseapp.com",
+    databaseURL: "https://volunteerhours-35189.firebaseio.com",
+    projectId: "volunteerhours-35189",
+    storageBucket: "volunteerhours-35189.appspot.com",
+    messagingSenderId: "672807771974"
+    };
+    firebase.initializeApp(config);
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="jumbotron box">
+                <h1>Track That Time</h1>
+                <br>
+                <h2>Gimme All Your Volunteer Deetz</h2>
+            </div>   
+        </div>
+        <br>
+        <br>
+        <div class="row">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Volunteers</div>
+                    <div class="panel-body">
+                        <table class="table" id="volunteerTable">
+                            <thead>
+                            <tr>
+                                <th><h4>Volunteer Name</h4></th>
+                                <th><h4>Volunteer Email</h4></th>
+                                <th><h4>Hours Worked</h4></th>
+                                <th><h4>Total Hours Worked</h4></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>            
+            <br>
+            <br>
+            <div class="row">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Add Volunteer</div>
+                        <div class="panel-body">
+                            <div class="input-group">
+                                <label for="volunteerName">Volunteer Name</label>
+                                <input type="text" class="form-control" id="volunteerName" aria-describedby="basic-addon1">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="volunteerEmail">Volunteer Email</label>
+                                <input type="text" class="form-control" id="volunteerEmail" aria-describedby="basic-addon1">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="volunteerPassword">Password</label>
+                                <input type="text" class="form-control" id="volunteerPassword" aria-describedby="basic-addon1">
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="hoursWorked">Hours Worked</label>
+                                <input type="text" class="form-control" id="hoursWorked" aria-describedby="basic-addon1">
+                            </div>
+                            
+                            <div class="btn-group">
+                                <button type="button" id="submit" class="btn btn-primary btn-lg">Submit</button>
+
+                            </div>
+                        </div>
+                    </div>           
+            </div>
+    </div>
+    
+    <script>
+
+    document.getElementById("submit").onclick = function(event){
+        event.preventDefault();
+        createUser();
+        console.log("you a beast");
+    }
+
+    function createUser () {
+        var email = document.getElementById("volunteerEmail").value;
+        var password = document.getElementById("volunteerPassword").value;
+        console.log(email);
+        console.log(password);
+
+        firebase.auth().createUserWithEmailAndPassword(email, password).then(function (user) {
+            alert("created"); //debugging purpose
+            }).catch(function(error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                console.log(errorCode);
+                var errorMessage = error.message;
+                alert(errorMessage);
+            });
+        }
+
+
+
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    
+</body>
+</html>

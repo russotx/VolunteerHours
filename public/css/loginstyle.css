@@ -1,0 +1,53 @@
+body {
+	box-sizing: border-box;
+	
+}
+
+p {
+	line-height: 200%;
+	font-size: 26px;
+	color: #194583;
+
+}
+
+#logo {
+	height: 300px;
+	border: 1px solid black;
+	width: auto;
+	display: block;
+	margin:auto;
+}
+
+#firebaseui-auth-container {
+	margin-top: 5%;
+}
+
+.navbar {
+	padding-left: 10%;
+	border-bottom: 2px solid #09BBEB;
+	background-color: lightgrey;
+	color: #09BBEB;
+}
+
+.row1 {
+	background-color: lightgrey;
+	padding-top: 2%;
+
+}
+
+
+.test {
+	text-align: center;
+}
+
+#moto {
+	display: block;
+	margin: auto;
+	width: 90%;
+	background-color: #194583;
+	color: darkorange;
+	padding-top: 1%;
+	padding-bottom: 1%;
+	margin-bottom: 2%;
+	border-radius: 15px;
+}
