@@ -1,10 +1,4 @@
 <<<<<<< HEAD
-$RECYCLE.BIN/
-
-.DS_Store
-
-/node-modules
-=======
 # Logs
 logs
 *.log
@@ -45,4 +39,10 @@ jspm_packages
 
 # MacOS finder meta data
 .DS_Store
->>>>>>> master
+=======
+$RECYCLE.BIN/
+
+.DS_Store
+
+/node-modules
+>>>>>>> Michael
