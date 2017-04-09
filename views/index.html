@@ -80,30 +80,9 @@
                     </div>           
             </div>
     </div>
-<script>
-
-document.getElementById("logout").onclick = function(event){
-  event.preventDefault();
-  logout();
-  }
-
-firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-  } else if (!user) {
-    window.location = "/login";
-  }
-});
 
 
-function logout () {
-  firebase.auth().signOut().then(function() {
-  alert("Sign out successful")
-  }, function(error) {
-  console.log(error);
-  });
-}
-
-</script>
+<script type="text/javascript" src="/javascript/index.js"></script>
 
 <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
 

@@ -2,4 +2,4 @@ $RECYCLE.BIN/
 
 .DS_Store
 
-/node-modules
+node-modules
