@@ -1,3 +1,4 @@
+// JS for login page
 document.getElementById("signIn").onclick = function(event){
   event.preventDefault();
   authenticateUser();
@@ -24,12 +25,16 @@ function authenticateUser() {
     });
   }
 
+// var provider = new firebase.auth.FacebookAuthProvider();
 
-  firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) { 
     window.location = "/index";
   }
 });
 
+  // attempting to make facebook login work 
+
+// auth.currentUser.linkWithPopup(provider);
 
 

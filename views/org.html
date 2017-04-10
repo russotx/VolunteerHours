@@ -1,3 +1,4 @@
+<!-- Org page  -->
 <!DOCTYPE html>
 <html lang="en-us">
 <html>
@@ -91,37 +92,10 @@
                     </div>           
             </div>
     </div>
-    
-    <script>
-
-    document.getElementById("submit").onclick = function(event){
-        event.preventDefault();
-        createUser();
-        console.log("you a beast");
-    }
-
-    function createUser () {
-        var email = document.getElementById("volunteerEmail").value;
-        var password = document.getElementById("volunteerPassword").value;
-        console.log(email);
-        console.log(password);
-
-        firebase.auth().createUserWithEmailAndPassword(email, password).then(function (user) {
-            alert("created"); //debugging purpose
-            }).catch(function(error) {
-                // Handle Errors here.
-                var errorCode = error.code;
-                console.log(errorCode);
-                var errorMessage = error.message;
-                alert(errorMessage);
-            });
-        }
-
-
-
-    </script>
 
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+
+    <script type="text/javascript" src="/javascript/org.js"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 

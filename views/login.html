@@ -1,3 +1,4 @@
+<!-- Login Page -->
 <!DOCTYPE html>
 <html lang="en-us">
 <html>
@@ -24,12 +25,15 @@
     
     <nav class="navbar">
       <h1>Welcome to VolunText</h1>
+      <div id="link">
+      <a id="link" href="/org">Admin?</a>
+    </div>
     </nav>
   
   <body>
    
     <div class="test" >
-      <h2 id="moto">Let Us Keep Track of Your Hours</h2>
+      <h2 id="motto">Let Us Keep Track of Your Hours</h2>
     </div>
     
     <div class="row row1">
@@ -37,30 +41,32 @@
       <div class="col-sm-1">
       </div>
 
-      <div class="col-sm-5">
-        <p>Welcome the best service for keeping track of volunteer hours!! Here at VolunText we believe in blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah</p>
+      <div class="col-sm-7">
+        <p>At VolunText we believe that solving a small problem can have a large impact. Our services are designed to assist the Volunteer driven non profit space by providing an efficient means of gathering volunteer hours at both the organizational and volunteer levels. We understand that inaccurate reporting can have an impact on the efficacy of an organization, and in turn, have devoted ourselves to finding a solution. Our solution is simple, yet effective. It helps assure maximum fundraising potential, promotes a sense of community within the Volunteers, and makes the impact of your organization easily visible on a global level. Help us make the World a better place by helping you make the world a better place!</p>
       </div>
 
-      <div class="col-sm-5">
+      <div class="col-sm-3">
 
         <div class="row">
-          <img id="logo" class="img-responsive img-circle"src="images/logo.jpg" alt="logo">
+          <img id="logo" class="img-circle"src="images/logo.png" alt="logo">
         </div>
 
         <div class="row">
-          <div class="input-group">
-            <label for="email">Email</label>
-            <input type="text" class="form-control" id="email" aria-describedby="basic-addon1">
+          <div class="input-group r2">
+            
+            <input type="text" class="form-control" id="email" placeholder="Email"aria-describedby="basic-addon1">
           </div>
-
-          <div class="input-group">
-            <label for="password">Password</label>
-            <input type="text" class="form-control" id="password" aria-describedby="basic-addon1">
+          <br>
+          <div class="input-group r2">
+            
+            <input type="password" class="form-control" id="password" placeholder="Password" aria-describedby="basic-addon1">
           </div>
+          <br>
                             
-          <div class="btn-group">
-            <button type="submit" id="signIn" class="btn btn-primary btn-lg" action="/" method="post">SignIn</button>
+          <div class="input-group r2 r3">
+          <button type="submit" id="signIn" class="btn btn-primary btn-lg r2" >SignIn</button>
           </div>
+          
 
       </div>
 
@@ -72,14 +78,12 @@
     <br>
     <br>
     
-    <div id="link">
-      <a href="/org">Admin?</a>
-    </div>
-
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 <script type="text/javascript" src="/javascript/login.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     
 </body>
 </html>

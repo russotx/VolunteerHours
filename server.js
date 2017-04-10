@@ -1,8 +1,22 @@
+// App node server
+
 var express = require('express');
+
 var app = express();
+
 var firebase = require('firebase');
+
 var http = require('http');
-// var loggedIn = require("./public/javascript/main.js");
+
+var admin = require("firebase-admin");
+
+var serviceAccount = require("./vtext.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://volunteerhours-35189.firebaseio.com/"
+});
+
 app.use(express.static('public'));
     
 // set the port of our application
