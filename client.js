@@ -372,6 +372,17 @@ function submitHours(){
     recordVolHours(volHours);
 }
 
+// returns true if toggle button for opting in to sms messages is on
+function isSMSoptout() {
+    var smsBox = document.getElementById('sms-toggle');
+    if (smsBox.checked) {
+        return false;
+    } else 
+        {
+            return true;
+        }
+}
+
 function isValidSubmit(theArray = []) {
     if (!(isNumeric(theArray[1])) || !(isNumeric(theArray[2])) || !(isNumeric(theArray[3]))) {
         return false;
@@ -413,6 +424,11 @@ function recordVolHours(volData) {
         newSubmission['/Volunteers/'+volKey+'/lastUpdateDate/'] = submissionDate;
         // add the submission to the log
         newSubmission['/Volunteers/'+volKey+'/log/'+submissionDate+'/'] = volData[1];  
+        // opt volunteer out of sms messages if they flip the toggle switch
+        if (isSMSoptout) {
+            newSubmission['/Volunteers/'+volKey+'/smsOpt/']  = false;    
+        }
+        // update the database at the volunteer's key with the new data
         database.ref().update(newSubmission);    
     } else // data validation error
         {
