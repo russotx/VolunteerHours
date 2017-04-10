@@ -367,23 +367,60 @@ function logSMSbatchInDB() {
 
 // submit hours manually online
 function submitHours(){
-    var volHours = grabVolHours();
+    // need Email, Hours, begin date, end date
+    var volHours = fieldData.grabSet('.myHours');
     recordVolHours(volHours);
 }
 
-// get volunteer hours from the input field
-function grabVolHours() {
-
-    // ...
-
+function isValidSubmit(theArray = []) {
+    if (!(isNumeric(theArray[1])) || !(isNumeric(theArray[2])) || !(isNumeric(theArray[3]))) {
+        return false;
+    } else 
+        {
+            return true;
+        }
 }
 
 // records volunteer hours to the database
 function recordVolHours(volData) {
-    
-    // send volData to firebase...
+    // need the volunteer's key to access them in the DB
+    var volEmail = noDotEmail(volData[0]);
+    var volKey;
+    var volExistingHrs = 0;
+    database.ref().once('value')
+        .then(function(snapshot) {
+            var theDB = snapshot.val();
+            volKey = theDB.volsByEmail[volEmail];
+            if (theDB.volKey.totalHours != undefined)
+            {
+                // get the total hours if they exist
+                volExistingHrs = theDB.volKey.totalHours;
+            } else 
+                {
+                    volExistingHrs = 0;   
+                }
+        });
+    if (isValidSubmit(volData)) {
+        // convert submission date integer mmddyyyy to a string 
+        submissionDate = volData[3].toString();
+        newSubmission = {};
+        // add new hours to total hours
+        var totalHours = volExistingHrs+volData[1]; 
+        newSubmission['/Volunteers/'+volKey+'/totalHours/'] = totalHours;
+        // add the last updated hours
+        newSubmission['/Volunteers/'+volKey+'/lastUpdateHours/'] = volData[1];
+        // submit the end date from the volunteer's submit period
+        newSubmission['/Volunteers/'+volKey+'/lastUpdateDate/'] = submissionDate;
+        // add the submission to the log
+        newSubmission['/Volunteers/'+volKey+'/log/'+submissionDate+'/'] = volData[1];  
+        database.ref().update(newSubmission);    
+    } else // data validation error
+        {
+            alert("invalid data");
+        } 
 
 }
+
 
 // posts recent volunteer hours to Facebook
 function postVoltoFB() {
