@@ -19,6 +19,7 @@
   "homepage": "https://github.com/russotx/VolunteerHours#readme",
   "dependencies": {
     "express": "^4.15.2",
-    "firebase": "^3.7.4"
+    "firebase": "^3.7.4",
+    "firebase-admin": "^4.2.0"
   }
 }

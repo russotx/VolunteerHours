@@ -4,16 +4,14 @@ body {
 }
 
 p {
-	line-height: 200%;
+	line-height: 150%;
 	font-size: 26px;
 	color: #194583;
 
 }
 
 #logo {
-	height: 300px;
 	border: 1px solid black;
-	width: auto;
 	display: block;
 	margin:auto;
 }
@@ -40,7 +38,7 @@ p {
 	text-align: center;
 }
 
-#moto {
+#motto {
 	display: block;
 	margin: auto;
 	width: 90%;
@@ -50,4 +48,25 @@ p {
 	padding-bottom: 1%;
 	margin-bottom: 2%;
 	border-radius: 15px;
+}
+
+.r2 {
+	margin:auto;
+}
+
+#email {
+	margin-top: 20%;
+}
+
+.r3 {
+	padding-bottom: 5%;
+}
+
+#email, #password {
+	border-radius: 10px;
+}
+
+#link {
+	float: right;
+	margin-right: 3%;
 }

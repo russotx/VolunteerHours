@@ -1,3 +1,4 @@
+<!-- User Page after Login -->
 <!DOCTYPE html>
 <html lang="en-us">
 <html>
@@ -80,34 +81,11 @@
                     </div>           
             </div>
     </div>
-<script>
-
-document.getElementById("logout").onclick = function(event){
-  event.preventDefault();
-  logout();
-  }
-
-firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-  } else if (!user) {
-    window.location = "/login";
-  }
-});
 
 
-function logout () {
-  firebase.auth().signOut().then(function() {
-  alert("Sign out successful")
-  }, function(error) {
-  console.log(error);
-  });
-}
-
-</script>
+<script type="text/javascript" src="/javascript/index.js"></script>
 
 <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
