@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Logs
 logs
 *.log
@@ -24,6 +23,7 @@ coverage
 # node-waf configuration
 .lock-wscript
 
+<<<<<<< HEAD
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
 
@@ -40,9 +40,5 @@ jspm_packages
 # MacOS finder meta data
 .DS_Store
 =======
-$RECYCLE.BIN/
-
-.DS_Store
-
-/node-modules
+node_modules
 >>>>>>> Michael
