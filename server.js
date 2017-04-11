@@ -39,6 +39,11 @@ app.get('/index', function (req, res) {
 	res.sendFile(__dirname + '/views/index.html');
 });
 
+app.get('/auth', function (req, res) {
+	
+	res.sendFile(__dirname + '/views/auth.html');
+});
+
 
 app.get('/org', function (req, res) {
 	res.sendFile(__dirname + '/views/org.html');
