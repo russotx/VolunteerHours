@@ -3,7 +3,7 @@
 document.getElementById("submit").onclick = function(event){
         event.preventDefault();
         createUser();
-        console.log("you a beast");
+        console.log("click works");
     }
 
     function createUser () {
@@ -14,7 +14,8 @@ document.getElementById("submit").onclick = function(event){
 
         firebase.auth().createUserWithEmailAndPassword(email, password).then(function (user) {
             user.sendEmailVerification();
-            alert("created"); //debugging purpose
+            logout();
+            clear(); //debugging purpose
             }).catch(function(error) {
                 // Handle Errors here.
                 var errorCode = error.code;
@@ -23,3 +24,16 @@ document.getElementById("submit").onclick = function(event){
                 alert(errorMessage);
             });
         }
+
+
+function logout () {
+  firebase.auth().signOut().then(function() {
+  }, function(error) {
+  console.log(error);
+  });
+}
+
+function clear () {
+    document.getElementById("volunteerPassword").value = "";
+    document.getElementById("volunteerEmail").value = "";
+}
