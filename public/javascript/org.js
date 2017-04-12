@@ -1,7 +1,29 @@
+/*****************************************
+*
+*       GLOBALS
+* 
+******************************************/
+
+// returns email bob@gmail.com as bob@gmail*com
+function emailToKey(inputEmail) {
+    var converted = (inputEmail).split('.').join('*');
+    return converted;
+}
+
+// returns email bob@gmail*com as bob@gmail.com
+function normalEmail(inputEmail) {
+    var converted = (inputEmail).split('*').join('.');
+    return converted;
+}
+
+
+
+
 // JS for organization page
 
 document.getElementById("submit").onclick = function(event){
         event.preventDefault();
+        onboardVol();
         createUser();
         console.log("click works");
     }
@@ -50,7 +72,6 @@ function onboardVol() {
         newVolData[newVolData.length-1] = volSMSpref;
         // save ther user data to Firebase
         newUserToDB(newVolData);
-        emailNewUser(newVolData);
     } else // data validation error
         {
             alert("invalid data");
@@ -69,6 +90,21 @@ function isSMSopt() {
         }
 }
 
+// get today as 'mm-dd-yyy'
+function getToday() {
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+    if(dd<10) {
+        dd='0'+dd
+    } 
+    if(mm<10) {
+        mm='0'+mm
+    } 
+    today = mm+'-'+dd+'-'+yyyy;
+    return today;
+}
 
 // returns true if all chars in a string are alphaNumeric
 function isAlpha(inputString) {
@@ -123,21 +159,23 @@ function isValidVolData(dataArray=[]) {
 
 
 // sends new user data to the DB
-// index 0 = name, 1 = email, 2 = phone, 3 = smsOpt
+// index 0 = name, 1 = email, 2 = phone, 3 = password, 4 = sms opt
 function newUserToDB(userData=[]) {
     var volsRef = database.ref('/Volunteers/');
     var newVolRef = volsRef.push();
     var volLink = newVolRef.toString();
     var volKey = newVolRef.key;
+    var today = getToday();
     var newVol = {
         name : userData[0],
         email : userData[1],
         phone : userData[2],
         smsOpt : userData[3],
-        link : volLink
+        link : volLink,
+        startDate : today 
     }
     var fanout = {};
-    var noDotEmail = (userData[1]).split('.').join('*');
+    var noDotEmail = emailToKey(userData[1]);
     console.log(noDotEmail);
     console.log(volKey);
     fanout['/Volunteers/'+volKey+'/'] = newVol;
@@ -145,3 +183,65 @@ function newUserToDB(userData=[]) {
     database.ref().update(fanout);
     console.log(newVol);
 }
+
+
+/******************************************
+*
+*   fieldData Object: 
+*    - handles grabbing data from
+*    - form fields
+* 
+*******************************************/
+
+// object of methods for dealing with form field data without jQuery
+var fieldData = {
+    // returns string of data from an input element matching id, does not need #
+    grabById : function(id) {
+        var targetId = '#' + id;
+        var targetField = document.querySelector(targetId);
+        return targetField.value;
+    },
+    // returns an array of input from a select group of fields matching the parameter
+    // requires prepend parameter with . for class, # for id. '[name="nameString"]' etc.
+    grabSet : function(className) {
+        var userInputArray = [];
+        var i = 0;
+        while (document.getElementsByClassName(className)[i] != null) {
+            var userInput = document.getElementsByClassName(className)[i].value;    
+            userInputArray.push(userInput);
+            i++;    
+        }
+            return userInputArray;
+    },
+    // returns an object containing all the data matching the fields with the
+    // selector
+    fieldsToObject : function(selector) {
+        var userInputObj = document.querySelectorAll('input '+selector);
+        return userInputObj;
+    },
+    // returns an array of all the data from every input field on a page 
+    grabAll : function() {
+        var userInputArray = [];
+        var i = 0;
+        while (document.getElementsByTagName('input')[i] != null) {
+            var userInput = document.getElementsByTagName('input')[i].value;    
+            userInputArray.push(userInput);
+            i++;    
+        }
+            return userInputArray;
+    },
+    // clears all input elements on the page
+    clearAll : function() {
+        var i = 0;
+        while (document.getElementsByTagName('input')[i] != null) {
+            document.getElementsByTagName('input')[i].value = "";    
+            i++;    
+        }     
+    },
+    // clears an input element with matching id
+    clearById : function(id) {
+        var targetId = '#' + id;
+        var targetField = document.querySelector(targetId);
+        targetField.value = "";    
+    }
+} //.... end of fieldData object.
