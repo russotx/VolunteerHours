@@ -1,3 +1,10 @@
+
+/*************************************************
+
+        AUTHENTICATION (Logout/Redirect)
+
+*************************************************/
+
 document.getElementById("logout").onclick = function(event){
   event.preventDefault();
   logout();
@@ -23,50 +30,47 @@ function logout () {
   });
 }
 
-var d = new Date();
-var month = new Array();
-month[0] = "January";
-month[1] = "February";
-month[2] = "March";
-month[3] = "April";
-month[4] = "May";
-month[5] = "June";
-month[6] = "July";
-month[7] = "August";
-month[8] = "September";
-month[9] = "October";
-month[10] = "November";
-month[11] = "December";
-var n = month[d.getMonth()];
 
-document.getElementById("currentMonth").innerHTML = n;
-document.getElementById("currentYear").innerHTML =  "This Year"
+/*********************************************
+        DOM Code
 
-var totalHours = 0;
-// Click function to add hours to the table on the page
+*********************************************/
+
+//Get key for current user
+var userKey = getVolKey("user@email.com")
+
+
+// Get total hours and start date from firebase and assign them to variables
+var totalHours = db.Volunteers[key].totalHours;
+var startDate = db.Volunteers[key].startDate;
+
+
+// Click function to add the hours collected to totalHours in Firebase
 $("#submit").on('click', function(){
-  totalHours+=parseInt(inputHours);
+  
   var inputHours = $(".form-control").val();
   $(".form-control").val("");
   console.log(inputHours);
-  console.log(typeof(totalHours));
-  $("#tbody").append("<tr><td>"+inputHours+"</td><td>"+totalHours+"</td></tr>")
+  //add hours to totalHours in Firebase
+  //..
+  
+  $("#tbody").append("<tr><td>"+inputHours+"</td><td>"+hoursYear+"</td></tr>")
 
 });
 
 
-var d = new Date();
-var month = new Array();
-month[0] = "January";
-month[1] = "February";
-month[2] = "March";
-month[3] = "April";
-month[4] = "May";
-month[5] = "June";
-month[6] = "July";
-month[7] = "August";
-month[8] = "September";
-month[9] = "October";
-month[10] = "November";
-month[11] = "December";
-var n = month[d.getMonth()];
+//Get the current user's key
+function getVolKey(email) {
+    var emailToKey = function(inputEmail) {
+        var converted = (inputEmail).split('.').join('*');
+        return converted;
+    };
+    var volKeyEmail = emailToKey(email.toLowerCase());
+    var volKey;
+    database.ref().once('value')
+        .then(function(snapshot) {
+            var theDB = snapshot.val();
+            volKey = theDB.volsByEmail[volKeyEmail];
+            return volKey;
+        });
+}
