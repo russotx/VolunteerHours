@@ -17,7 +17,7 @@ function normalEmail(inputEmail) {
 }
 
 
-
+var database = firebase.database();
 
 // JS for organization page
 
@@ -171,6 +171,7 @@ function newUserToDB(userData=[]) {
         email : userData[1],
         phone : userData[2],
         smsOpt : userData[3],
+        hours : 0,
         link : volLink,
         startDate : today 
     }

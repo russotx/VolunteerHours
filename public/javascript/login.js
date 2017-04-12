@@ -3,11 +3,25 @@ var user;
 
 var provider = new firebase.auth.FacebookAuthProvider();
 
+var database = firebase.database();
+
 document.getElementById("signIn").onclick = function(event){
   event.preventDefault();
   authenticateUser();
   console.log("Clicking Works");
   }
+
+document.getElementById("logout").onclick = function(event){
+  event.preventDefault();
+  logout();
+  }
+
+function logout () {
+  firebase.auth().signOut().then(function() {
+  }, function(error) {
+  console.log(error);
+  });
+}
 
 
 function authenticateUser() {
@@ -33,7 +47,8 @@ function authenticateUser() {
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) { 
     user = (user);
-    console.log (user);
+    console.log (user.email);
+    database.ref().update({currentlogin : user.email});
     test(user);
   }
 });
