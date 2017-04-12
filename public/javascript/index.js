@@ -57,19 +57,14 @@ $("#submit").on('click', function(){
 
 
 //Get the current user's key
-function getVolKey(email) {
+function getVolKey(email, snap) {
     var emailToKey = function(inputEmail) {
         var converted = (inputEmail).split('.').join('*');
         return converted;
     };
     var volKeyEmail = emailToKey(email.toLowerCase());
-    var volKey;
-    database.ref().once('value')
-        .then(function(snapshot) {
-            var theDB = snapshot.val();
-            volKey = theDB.volsByEmail[volKeyEmail];
-            return volKey;
-        });
+    var volKey = snap.volsByEmail[volKeyEmail];
+    return volKey;
 }
 
 /*****************************************
@@ -88,18 +83,19 @@ function submitHours(){
 }
 
 // records volunteer hours to the database
-// volData = [ 0:email, 1:hours, 2:begindate m, 3:begindate d, 4: begindate y, 5: enddate m, 6: enddate d, 7: enddate y]
+// volData = [ 0:hours, 1:begindate m, 2:begindate d, 3: begindate y, 4: enddate m, 5: enddate d, 6: enddate y]
 function recordVolHours(volData) {
     console.log('the volunteer data: '+volData);
     // need the volunteer's key to access them in the DB
-    var volEmail = emailToKey(volData[0].toLowerCase());
+    var userEmail = database.ref().currentLogin;
     var volKey;
     var volExistingHrs = 0;
-    var intHours = parseInt(volData[1]);
+    // turn hours into an integer
+    var intHours = parseInt(volData[0]);
     database.ref().once('value')
         .then(function(snapshot) {
             var theDB = snapshot.val();
-            volKey = theDB.volsByEmail[volEmail];
+            volKey = getVolKey(userEmail,theDB);
             console.log('volunteer key: '+volKey);
             console.log(theDB[volKey]);
             if (theDB.Volunteers[volKey].totalHours != undefined)
@@ -112,8 +108,8 @@ function recordVolHours(volData) {
                 }
             // get today's date as string 'mm-dd-yyyy'
             submissionDate = getToday();
-            var begin = volData[2]+'-'+volData[3]+'-'+volData[4];
-            var end = volData[5]+'-'+volData[6]+'-'+volData[7];
+            var begin = volData[1]+'-'+volData[2]+'-'+volData[3];
+            var end = volData[4]+'-'+volData[5]+'-'+volData[6];
             newSubmission = {};
             // add new hours to total hours
             var totalHours = volExistingHrs+intHours; 
