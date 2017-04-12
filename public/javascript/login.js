@@ -1,12 +1,12 @@
 // JS for login page
-var user;
+var user2;
 
 var provider = new firebase.auth.FacebookAuthProvider();
 
 document.getElementById("signIn").onclick = function(event){
   event.preventDefault();
   authenticateUser();
-  console.log("Clicking Works");
+  console.log("click works");
   }
 
 
@@ -32,11 +32,13 @@ function authenticateUser() {
 
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) { 
-    user = (user);
-    console.log (user);
+    console.log(user.email);
+    user2 = user;
+    console.log(user);
     test(user);
   }
 });
+
 
 function test (user) {
 
@@ -60,7 +62,5 @@ function test (user) {
           });
       }
   }
-
-
 
 

@@ -5,8 +5,8 @@ document.getElementById("logout").onclick = function(event){
 
 // var provider = new firebase.auth.FacebookAuthProvider();
 
-var user = firebase.auth().currentUser;
-console.log(user);
+
+
 
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) { 
