@@ -107,15 +107,7 @@ db.ref().once('value')
 
 // Click function to add the hours collected to totalHours in Firebase
 $("#submit").on('click', function(){
-  
-  inputHours = $(".form-control").val();
-  $(".form-control").val("");
-  console.log(inputHours);
-  //add hours to totalHours in Firebase
-  // submitHours();
-  var updatedH = hours  += inputHours;
-  
-  
+  submitHours();
 
 });
 
@@ -138,12 +130,69 @@ function getVolKey(email, snap) {
 ******************************************/
 
 
+
 // submit hours manually online
 function submitHours(){
     // need Email, Hours, begin date, end date
     var volHours = fieldData.grabSet('my-hours');
+    var beginM = volHours[1];
+    var beginD = volHours[2];
+    var beginY = volHours[3];
+    var endM = volHours[4];
+    var endD = volHours[5];
+    var endY = volHours[6]; 
+    var formSelector = $('.my-hours');
     console.log('the vol hours: '+volHours);
-    recordVolHours(volHours);
+    // validate the input dates for hours
+    if ((validateDate(formSelector,beginM)) && (validateDate(formSelector,beginD)) && (validateYear(formSelector,beginY)) &&
+        (validateDate(formSelector,endM)) && (validateDate(formSelector,endD)) && (validateYear(formSelector,endY)))  {
+            
+            recordVolHours(volHours);
+
+    }
+}
+
+
+function validateDate($jqSelector,mmORdd) {
+    function isDateValidFunc(mmORdd) {
+        if (mmORdd.length != 2) {
+            return false;
+        } else {
+            for (x=0;x<mmORdd.length;x++) {
+                if ((parseInt(mmORdd[x] === NaN)) || (mmORdd.length != 2)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
+    if (!isDateValidFunc(mmORdd)) {
+      $jqSelector.css("background-color","#FFA8A8");
+      $jqSelector.val("MMDDYYYY");  
+      return false;
+    }
+    return true;
+}
+
+function validateYear($jqSelector,yyyy) {
+    function isDateValidFunc(yyyy) {
+        if (yyyy.length != 4) {
+            return false;
+        } else {
+            for (x=0;x<yyyy.length;x++) {
+                if (parseInt(yyyy[x]) === NaN) {
+                    return false;
+                }
+            }
+        }
+            return true;
+    }
+    if (!isDateValidFunc(yyyy)) {
+      $jqSelector.css("background-color","#FFA8A8");
+      $jqSelector.val("MMDDYYYY");  
+      return false;
+    }
+    return true;
 }
 
 // records volunteer hours to the database
@@ -151,14 +200,14 @@ function submitHours(){
 function recordVolHours(volData) {
     console.log('the volunteer data: '+volData);
     // need the volunteer's key to access them in the DB
-    var userEmail = database.ref().currentLogin;
     var volKey;
     var volExistingHrs = 0;
     // turn hours into an integer
     var intHours = parseInt(volData[0]);
-    database.ref().once('value')
+    db.ref().once('value')
         .then(function(snapshot) {
             var theDB = snapshot.val();
+            var userEmail = theDB.currentlogin;
             volKey = getVolKey(userEmail,theDB);
             console.log('volunteer key: '+volKey);
             console.log(theDB[volKey]);
@@ -184,7 +233,7 @@ function recordVolHours(volData) {
             newSubmission['/Volunteers/'+volKey+'/lastUpdateDate/'] = submissionDate;
             // add the submission to the log
             newSubmission['/Volunteers/'+volKey+'/log/'+begin+':'+end+'/'] = intHours;  
-            database.ref().update(newSubmission);    
+            db.ref().update(newSubmission);    
         });
       
     

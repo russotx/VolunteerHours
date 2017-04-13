@@ -1,0 +1,24 @@
+.collect {
+	display: inline-block !important;
+	/*padding-bottom: 5%;*/
+	margin-right: 2% !important;
+	width: 10%;
+}
+
+.fb-share-button {
+	float: right;
+	transform: scale(3.5);
+	margin-right: 10%;
+}
+
+.labels {
+	margin-left: 2%;
+}
+
+.bts {
+	margin-right: 2%;
+}
+
+.btn-group {
+	width: 100%;
+}
