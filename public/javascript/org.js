@@ -21,6 +21,7 @@ var database = firebase.database();
 
 // JS for organization page
 
+// create new user and onboard the volunteer
 document.getElementById("submit").onclick = function(event){
         event.preventDefault();
         onboardVol();
@@ -28,24 +29,31 @@ document.getElementById("submit").onclick = function(event){
         console.log("click works");
     }
 
-    function createUser () {
-        var email = document.getElementById("volunteerEmail").value;
-        var password = document.getElementById("volunteerPassword").value;
-        console.log(email);
-        console.log(password);
+// send a reminder SMS to all volunteers
+document.getElementById("sendSMS").onclick = function(event){
+    event.preventDefault();
+    database.ref('/sendSMS/').update(true);
+}
 
-        firebase.auth().createUserWithEmailAndPassword(email, password).then(function (user) {
-            user.sendEmailVerification();
-            logout();
-            clear(); //debugging purpose
-            }).catch(function(error) {
-                // Handle Errors here.
-                var errorCode = error.code;
-                console.log(errorCode);
-                var errorMessage = error.message;
-                alert(errorMessage);
-            });
-        }
+// create user for auth in Firebase
+function createUser () {
+    var email = document.getElementById("volunteerEmail").value;
+    var password = document.getElementById("volunteerPassword").value;
+    console.log(email);
+    console.log(password);
+
+    firebase.auth().createUserWithEmailAndPassword(email, password).then(function (user) {
+        user.sendEmailVerification();
+        logout();
+        clear(); //debugging purpose
+        }).catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            console.log(errorCode);
+            var errorMessage = error.message;
+            alert(errorMessage);
+        });
+}
 
 
 function logout () {
