@@ -19,6 +19,39 @@ function normalEmail(inputEmail) {
 
 var database = firebase.database();
 
+database.ref().on('value',function(snapshot){
+    console.log("hello");
+    var dbImage = snapshot.val();
+    var name = $('#v-name');
+    var email = $('#v-email');
+    var hours = $('#v-hours');
+    var total = $('#v-total');
+    $('#volunteerTable').find('.v-update').remove();
+    for(x in dbImage.Volunteers) {
+        var vName = $('<p>');
+        var vEmail = $('<p>');
+        var vTotal = $('<p>');
+        vName.addClass('v-update');
+        vEmail.addClass('v-update');
+        vTotal.addClass('v-update');
+        vName.html(dbImage.Volunteers[x].name);
+        vEmail.html(dbImage.Volunteers[x].email);
+        if (dbImage.Volunteers[x].totalHours != undefined) {
+            vTotal.html(dbImage.Volunteers[x].totalHours);
+        } else {
+            vTotal.html('none');
+        }
+        name.append(vName);
+        email.append(vEmail);
+        total.append(vTotal);
+
+        
+    }
+});
+
+
+
+
 // JS for organization page
 
 // create new user and onboard the volunteer
@@ -31,8 +64,10 @@ document.getElementById("submit").onclick = function(event){
 
 // send a reminder SMS to all volunteers
 document.getElementById("sendSMS").onclick = function(event){
-    event.preventDefault();
+    // event.preventDefault();
+    console.log("clicked");
     var content = $('#smsContent').val();
+    console.log(content);
     var fanout = {};
     fanout['/smsAction/smsContent/'] = content;
     fanout['/smsAction/sendSMS/'] = true;

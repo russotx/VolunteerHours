@@ -9,11 +9,12 @@
 //   face();
 //   }
 
+var fbHours;
 
 // On click posts to calls function to post to currently logged in Facebook user
 document.getElementById("post").onclick = function(event){
   event.preventDefault();
-  var fbHours = $("#myHours").val();
+  fbHours = $("#myHours").val();
   submitHours();
   post();
   }
@@ -21,7 +22,7 @@ document.getElementById("post").onclick = function(event){
 
 //  Posts to facebook
 function post() {
-  FB.login(function(){FB.api('/me/feed', 'post', {message: "I Volunteered "+ fbHours +" hours!" });}, {scope: 'publish_actions'});
+  FB.login(function(){FB.api('/me/feed', 'post', {message: "I Volunteered "+ fbHours +" hours at the Miracle Foundation!" });}, {scope: 'publish_actions'});
 }
 
 // Checks if facebook user is logged in 
@@ -36,10 +37,6 @@ function post() {
 // });
 
 //   }
-
-
-
-
 
 document.getElementById("logout").onclick = function(event){
   event.preventDefault();
@@ -101,10 +98,37 @@ db.ref().once('value')
     console.log(phone);
     startDate = theDB.Volunteers[userKey].startDate;
     console.log(startDate);
-    hours = theDB.Volunteers[userKey].hours;
-    $("tbody").append("<tr><td>"+name+"</td><td>"+phone+"</td><td id='hours'>"+hours+"</td><td>"+startDate+"</td></tr>");
+    hours = theDB.Volunteers[userKey].totalHours;
+   // $("tbody").append("<tr class='temp'><td class='temp'>"+name+"</td><td class='temp'>"+phone+"</td><td id='hours' class='temp'>"+hours+"</td><td class='temp'>"+startDate+"</td></tr>");
    
-})
+});
+
+db.ref().on('value',function(snapshot){
+    console.log("hello");
+    var dbImage = snapshot.val();
+    var theUser = dbImage.currentlogin;  
+    userKey = getVolKey(theUser, dbImage);
+    $('tbody').find('.temp').remove();
+        var vTr = $('<tr>');
+        var vName = $('<td class="temp">');
+        var vPhone = $('<td class="temp">');
+        var vTotal = $('<td class="temp">');
+        var vStart = $('<td class="temp">');
+        vName.html(dbImage.Volunteers[userKey].name);
+        vPhone.html(dbImage.Volunteers[userKey].phone);
+        vStart.html(dbImage.Volunteers[userKey].startDate);
+        if (dbImage.Volunteers[userKey].totalHours != undefined) {
+            vTotal.html(dbImage.Volunteers[userKey].totalHours);
+        } else {
+            vTotal.html('none');
+        }
+        vTr.append(vName);
+        vTr.append(vPhone);
+        vTr.append(vTotal);
+        vTr.append(vStart);
+        $('tbody').append(vTr);
+});
+
 
 
 // Click function to add the hours collected to totalHours in Firebase

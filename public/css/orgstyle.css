@@ -70,4 +70,8 @@
     .slider.round:before {
       border-radius: 50%;
     }
+
+    /*.bord {
+     border-bottom: 1px solid black;
+    }*/
 /*-----------------------------------*/
