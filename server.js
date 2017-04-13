@@ -4,7 +4,7 @@ var express = require('express');
 
 var app = express();
 
-var firebase = require('firebase');
+// var firebase = require('firebase');
 
 var http = require('http');
 
@@ -32,7 +32,7 @@ admin.initializeApp({
 
 // authenticate with admin privileges
 var database = admin.database();
-var ref = database.ref("restricted_access/secret_document");
+// var ref = database.ref("restricted_access/secret_document");
 
 //-------------------------------------------------------------
 
@@ -50,6 +50,7 @@ function sendSMS(toPhone,smsContent) {
   };
   client.Message.send(message)
   .then(function(message) {
+  	 console.log("Im sending");
       // report status, change sendSMS flag back to false and revert to default message
       dbSMSreset = {};
       var smsSentKey = database.ref('/smsAction/smsSentLog/').push();
@@ -66,22 +67,26 @@ function sendSMS(toPhone,smsContent) {
 }
 
 // check for changes to Firebase at ~/sendSMS/boolean
-database.ref('/smsAction/').on('value', function(snapshot) {
+database.ref('/smsAction/').on('value', function(snapshot) { 
     var dbImage = snapshot.val();
-    // if the sendSMS flag in Firebase is true, send an SMS
-    // this gets triggered by the org page button to send SMS
-    if (dbImage.smsAction.sendSMS === true) {
-        var content = "Please report your volunteer stats!";
-        for (x in dbImage.Volunteers){
-            if (dbImage[x].smsOpt === true) {
-                var phone = dbImage[x].phone;
-                var content = dbImage.        
-                sendSMS(phone,theMessage);
-            }
-            else {
-                return false;
-            }
-        }
+    if (dbImage.sendSMS === true) {
+        console.log(dbImage);
+        database.ref().once('value') 
+            .then(function(snap) {
+                // if the sendSMS flag in Firebase is true, send an SMS
+                // this gets triggered by the org page button to send SMS
+                var fullDB = snap.val();
+                for (x in fullDB.Volunteers){ 
+                    if (fullDB[x].smsOpt === on) { 
+                        var phone = fullDB[x].phone;
+                        var content = fullDB.smsAction.smsContent;        
+                        sendSMS(phone,theMessage);
+                    }
+                    else { 
+                        return false;
+                    }
+                }
+        });
     }    
 });
 

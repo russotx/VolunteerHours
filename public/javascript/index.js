@@ -13,13 +13,15 @@
 // On click posts to calls function to post to currently logged in Facebook user
 document.getElementById("post").onclick = function(event){
   event.preventDefault();
+  var fbHours = $("#myHours").val();
+  submitHours();
   post();
   }
 
 
 //  Posts to facebook
 function post() {
-  FB.login(function(){FB.api('/me/feed', 'post', {message: "I Volunteered "+ inputHours +" hours at https://www.austinhabitat.org"});}, {scope: 'publish_actions'});
+  FB.login(function(){FB.api('/me/feed', 'post', {message: "I Volunteered "+ fbHours +" hours!" });}, {scope: 'publish_actions'});
 }
 
 // Checks if facebook user is logged in 

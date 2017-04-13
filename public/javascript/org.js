@@ -32,7 +32,11 @@ document.getElementById("submit").onclick = function(event){
 // send a reminder SMS to all volunteers
 document.getElementById("sendSMS").onclick = function(event){
     event.preventDefault();
-    database.ref('/sendSMS/').update(true);
+    var content = $('#smsContent').val();
+    var fanout = {};
+    fanout['/smsAction/smsContent/'] = content;
+    fanout['/smsAction/sendSMS/'] = true;
+    database.ref().update(fanout);
 }
 
 // create user for auth in Firebase
